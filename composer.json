@@ -1,10 +1,10 @@
 {
     "name": "josegomezr/l4-bootstrap",
-    "description": "",
+    "description": "Bootstrap 3 Laravel 4 implementation",
     "authors": [
         {
-            "name": "",
-            "email": ""
+            "name": "Jose Gomez",
+            "email": "1josegomezr@gmail.com"
         }
     ],
     "require": {
