@@ -32,6 +32,25 @@ class L4BootstrapServiceProvider extends ServiceProvider {
             return new NavMenu;
         });
 
+  		$this->app['l4-bootstrap.button'] = $this->app->share(function($app) {
+            return new Button;
+        });
+
+  		$this->app['l4-bootstrap.anchorButton'] = $this->app->share(function($app) {
+            return new AnchorButton;
+        });
+
+
+        $this->app->booting(function()
+        {
+            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+            $loader->alias('Navbar', 'Josegomezr\L4Bootstrap\Facades\Navbar');
+            $loader->alias('NavbarItem', 'Josegomezr\L4Bootstrap\Facades\NavbarItem');
+            $loader->alias('NavMenu', 'Josegomezr\L4Bootstrap\Facades\NavMenu');
+            $loader->alias('Button', 'Josegomezr\L4Bootstrap\Facades\Button');
+            $loader->alias('AnchorButton', 'Josegomezr\L4Bootstrap\Facades\AnchorButton');
+        });
+
 	}
 
 	/**
