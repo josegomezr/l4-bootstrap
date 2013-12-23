@@ -1,6 +1,6 @@
 <?php namespace Josegomezr\L4Bootstrap;
 
-class Button  extends MakeableObject {
+class Button  extends Component {
 
 	protected $displayName = "";
 	protected $classes = array();
@@ -73,7 +73,13 @@ class Button  extends MakeableObject {
 		return $this;
 	}
 
-	public function attach(MakeableObject $component, $position = "before")
+	public function addClass($val)
+	{
+		$this->classes[] = $val;
+		return $this;
+	}
+
+	public function attach(Component $component, $position = "before")
 	{
 		$this->components[$position] = $component;
 		return $this;
@@ -90,7 +96,7 @@ class Button  extends MakeableObject {
 		if($this->active)
 			$this->classes[] = "active";
 
-		if($this->tag != "a" && isset($this->attributes["type"])){
+		if($this->tag != "a" && !isset($this->attributes["type"])){
 			$this->attributes["type"] = "button";
 		}
 
@@ -116,5 +122,8 @@ class Button  extends MakeableObject {
 		return $output;
 	}
 
-
+	public function align($val){
+		$this->classes[] = $val;
+		return $this;
+	}
 }

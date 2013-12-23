@@ -3,7 +3,7 @@
 * 
 */
 
-class NavMenu
+class NavMenu extends Component
 {
 	private $output;
 	protected $brand;
@@ -62,7 +62,7 @@ class NavMenu
    		$this->output .= (!empty($this->classes) ? implode(' ', $this->classes) :'');
    		$this->output .= '">';
 		foreach ($this->elements as $uri => $elem) {
-			if($this->autoroute){
+			if($this->autoroute && !is_numeric($uri)){
 				if($uri == '/'){
 					if(\Request::is($this->prefix)){
 						$elem->setActive();
@@ -78,5 +78,17 @@ class NavMenu
 		$this->output .= '</ul>';
 	
 		return $this->output;
+	}
+	public function align($val){
+		$this->classes[] = $val;
+		return $this;
+	}
+	public function addClass($val){
+		$this->classes[] = $val;
+		return $this;
+	}
+	public function attach(Component $element){
+		$this->components[] = $element;
+		return $this;
 	}
 }

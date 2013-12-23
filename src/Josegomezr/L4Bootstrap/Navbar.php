@@ -3,7 +3,7 @@
 * 
 */
 
-class Navbar
+class Navbar extends Component
 {
 	private $output;
 	protected $brand;
@@ -45,7 +45,11 @@ class Navbar
 		return $this;
 	}
 
-	public function attach($element){
+	public function attach(Component $element){
+		$arr = explode('\\', get_class($element));
+		if(end($arr) == 'Button'){
+			$element->addClass('navbar-btn');
+		}
 		$this->elements[] = $element;
 		return $this;
 	}
@@ -102,5 +106,13 @@ EOF;
 </nav>
 EOF;
 		return $this->output;
+	}
+	public function align($val){
+		$this->classes[] = $val;
+		return $this;
+	}
+	public function addClass($val){
+		$this->classes[] = $val;
+		return $this;
 	}
 }
