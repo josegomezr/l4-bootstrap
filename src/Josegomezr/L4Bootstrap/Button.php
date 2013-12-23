@@ -7,19 +7,32 @@ class Button  extends MakeableObject {
 	protected $icon = null;
 	protected $active = false;
 	protected $enabled = true;
-	protected $iconAfterText = true;
 	protected $tag = "button";
 	protected $attributes = array();
 	protected $output;
 
-	static function create($tag, $displayName="")
+	static function create($displayName="")
 	{
 		$that = new self();
-		$that->tag = $tag;
+		$that->tag = "a";
 		$that->displayName = $displayName;
 		$that->enabled = true;
 		$that->components = ['before' => array(), 'after' => array()];
 		return $that;
+	}
+
+	public function reset()
+	{
+		$this->tag = "button";
+		$this->attributes["type"] = "reset";
+		return $this;
+	}
+
+	public function submit()
+	{
+		$this->tag = "button";
+		$this->attributes["type"] = "submit";
+		return $this;
 	}
 
 	public function active($val)
@@ -28,8 +41,22 @@ class Button  extends MakeableObject {
 		return $this;
 	}
 
+	public function anchor($val)
+	{
+		$this->attributes['href'] = $val;
+		return $this;
+	}
+
 	public function disabled($val)
 	{
+		if(in_array($this->tag, array('input', 'button'))){
+			if($val){
+				$this->attributes["disabled"] = $val;
+				
+			}else{
+				unset($this->attributes['disabled']);
+			}
+		}
 		$this->enabled = $val;
 		return $this;
 	}
@@ -62,6 +89,10 @@ class Button  extends MakeableObject {
 
 		if($this->active)
 			$this->classes[] = "active";
+
+		if($this->tag != "a" && isset($this->attributes["type"])){
+			$this->attributes["type"] = "button";
+		}
 
 		$output .= '<' . $this->tag;
 		$output .= ' class="btn ';
